@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: devops-pulse-dev
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/acg8326/devops-pulse-gitops.git
+    targetRevision: main
+    path: apps/devops-pulse/overlays/dev
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: devops-pulse-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
