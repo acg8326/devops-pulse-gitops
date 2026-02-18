@@ -19,9 +19,9 @@ spec:
     spec:
       containers:
         - name: backend
-          image: devops-pulse-backend:latest
+          image: nginx:alpine
           ports:
-            - containerPort: 3000
+            - containerPort: 80
           resources:
             requests:
               memory: "128Mi"
@@ -31,13 +31,13 @@ spec:
               cpu: "200m"
           readinessProbe:
             httpGet:
-              path: /health
-              port: 3000
+              path: /
+              port: 80
             initialDelaySeconds: 5
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /health
-              port: 3000
+              path: /
+              port: 80
             initialDelaySeconds: 15
             periodSeconds: 20
